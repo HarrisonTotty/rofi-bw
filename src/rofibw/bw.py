@@ -135,7 +135,6 @@ def sync(force: bool = False):
     if force: cmdstr += ' --force'
     (o, ec) = cmd.run(cmdstr)
     if ec:
-        print(o)
         raise Exception('Unable to synchronize local bitwarden vault')
 
 

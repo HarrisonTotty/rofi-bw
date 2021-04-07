@@ -4,7 +4,7 @@ description = "A handy script for browsing bitwarden passwords with rofi."
 name = "rofibw"
 readme = "README.md"
 repository = "https://github.com/HarrisonTotty/rofi-bw"
-version = "0.1.0"
+version = "0.1.4"
 
 [tool.poetry.dependencies]
 python = "^3.9"

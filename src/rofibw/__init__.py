@@ -17,7 +17,6 @@ def main():
     '''
     The entrypoint of the program.
     '''
-    # Parse command-line arguments.
     args = cli.parse_arguments()
 
     if os.path.isfile(args.session_file):
@@ -37,9 +36,15 @@ def main():
         oldest = now - datetime.timedelta(minutes = args.sync_threshold)
         last_sync = datetime.datetime.strptime(status['lastSync'].rsplit('.', 1)[0], '%Y-%m-%dT%H:%M:%S')
         if last_sync <= oldest:
-            bw.sync()
+            try:
+                bw.sync()
+            except Exception:
+                sys.stderr.write('Warning: Unable to synchronize vault.\n')
     else:
-        bw.sync()
+        try:
+            bw.sync()
+        except Exception:
+            sys.stderr.write('Warning: Unable to synchronize vault.\n')
 
     logins = bw.get_logins()
     rofi_entries = []
@@ -53,5 +58,5 @@ def main():
                 l['path']
             )
     selected = cmd.rofi(rofi_entries).split(' ', 1)[0].strip()
-    sys.stdout.write(next(l['password'] for l in logins if l['path'] == selected))
+    sys.stdout.write(next(l['password'] for l in logins if l['path'] == selected).strip())
     sys.exit(0)
