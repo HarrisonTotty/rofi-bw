@@ -35,7 +35,7 @@ def run(cmd):
     process = subprocess.Popen(
         cmd,
         stdout = subprocess.PIPE,
-        stderr = subprocess.STDOUT,
+        stderr = subprocess.DEVNULL,
         shell = True
     )
     output = process.communicate()[0].decode('ascii', 'ignore')
